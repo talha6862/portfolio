@@ -65,28 +65,6 @@
     window.addEventListener('resize', tick);
   }
 
-  /* ---------- portrait parallax tilt (pointer devices only) ---------- */
-  var pw = document.getElementById('hero');
-  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (pw && fine && !reduced) {
-    var card = document.getElementById('heroPhoto');
-    var frame = null;
-    pw.addEventListener('mousemove', function (e) {
-      if (frame) return;
-      frame = requestAnimationFrame(function () {
-        frame = null;
-        var r = pw.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform =
-          'translate3d(' + (-x * 26).toFixed(1) + 'px,' + (-y * 18).toFixed(1) + 'px,0) scale(1.05)';
-      });
-    });
-    pw.addEventListener('mouseleave', function () {
-      card.style.transform = '';
-    });
-  }
-
   /* ---------- lightbox ---------- */
   var box = document.getElementById('lightbox');
   if (!box) return;
