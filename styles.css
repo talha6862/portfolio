@@ -415,3 +415,94 @@ footer a:hover{color:var(--brass)}
   .sheen{display:none}
   .portrait{transition:none}
 }
+
+/* ============================================================
+   GLASS THEME
+   Frosted panels need something to refract, so the page sits on
+   a slow-drifting gradient field rather than flat colour.
+   ============================================================ */
+
+body{background:#0F0608}
+
+/* ---- gradient field ---- */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#0F0608}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
+.b1{width:48vw;height:48vw;left:-10vw;top:-12vw;background:#7A1B30;animation:drift1 26s ease-in-out infinite}
+.b2{width:42vw;height:42vw;right:-8vw;top:-6vw;background:#B8862B;opacity:.34;animation:drift2 32s ease-in-out infinite}
+.b3{width:50vw;height:50vw;left:16vw;top:38vh;background:#2F2060;opacity:.46;animation:drift3 38s ease-in-out infinite}
+.b4{width:40vw;height:40vw;right:-6vw;top:46vh;background:#145C63;opacity:.40;animation:drift1 30s ease-in-out infinite reverse}
+.b5{width:46vw;height:46vw;left:-14vw;top:62vh;background:#8C2F3F;opacity:.36;animation:drift2 34s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(7vw,5vh) scale(1.12)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,7vh) scale(1.08)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5vw,-6vh) scale(1.15)}}
+.noise{position:absolute;inset:0;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---- the glass surface ---- */
+.glass{
+  background:linear-gradient(145deg, rgba(246,241,234,.085), rgba(246,241,234,.035));
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);
+  backdrop-filter:blur(22px) saturate(1.5);
+  border:1px solid rgba(246,241,234,.14);
+  box-shadow:0 18px 44px -20px rgba(0,0,0,.72), inset 0 1px 0 rgba(246,241,234,.16);
+  border-radius:18px;
+}
+/* browsers without backdrop-filter get an opaque panel instead of a muddy one */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass{background:rgba(32,18,22,.93)}
+}
+
+/* sections become translucent so the field shows through */
+.case,.also,.stack,.exp,.contact,.hero{background:transparent}
+.case::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(80% 110% at 84% 8%, color-mix(in srgb, var(--tint) 20%, transparent) 0%, transparent 60%);
+}
+.also,.exp{background:rgba(20,10,13,.34)}
+footer{background:rgba(15,6,8,.5);backdrop-filter:blur(14px)}
+
+/* ---- header ---- */
+.bar{background:linear-gradient(180deg, rgba(246,241,234,.07), rgba(246,241,234,.03));
+  border-radius:0;border-left:0;border-right:0;border-top:0;box-shadow:none}
+.bar.stuck{box-shadow:0 10px 30px -18px rgba(0,0,0,.8)}
+
+/* ---- facts row ---- */
+.facts{padding:22px clamp(18px,2.4vw,28px);border-top:0;margin-top:46px}
+
+/* ---- project media as glass frames ---- */
+.shot{padding:10px;margin:0}
+.shot .zoom{border-radius:11px;border-color:rgba(246,241,234,.10);background:transparent}
+.shot figcaption{margin:11px 4px 3px}
+.shot:hover{border-color:color-mix(in srgb, var(--tint) 45%, rgba(246,241,234,.14))}
+.zoom:hover{transform:translateY(-2px);box-shadow:none}
+
+/* ---- mini + stack tiles ---- */
+.mini{background:linear-gradient(145deg, rgba(246,241,234,.085), rgba(246,241,234,.035))}
+.tile{padding:clamp(18px,2.2vw,24px)}
+.stack-grid{gap:clamp(14px,1.8vw,20px)}
+
+/* ---- portrait reads as glass too ---- */
+.portrait{border-color:rgba(246,241,234,.22);
+  box-shadow:0 36px 70px -30px rgba(0,0,0,.85), inset 0 1px 0 rgba(246,241,234,.22)}
+.portrait::after{background:linear-gradient(to top, rgba(15,6,8,.96) 2%, rgba(15,6,8,.5) 42%, transparent 100%)}
+.portrait-badge{background:linear-gradient(145deg, rgba(246,241,234,.14), rgba(246,241,234,.06));
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4)}
+
+/* ---- tags as small glass pills ---- */
+.tags li{background:rgba(246,241,234,.07);border-color:rgba(246,241,234,.13);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* ---- buttons: ghost becomes glass ---- */
+.btn.ghost{background:linear-gradient(145deg, rgba(246,241,234,.10), rgba(246,241,234,.04));
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:inset 0 1px 0 rgba(246,241,234,.18), 0 10px 26px -16px rgba(0,0,0,.8)}
+
+/* ---- blur is expensive on phones: lighten it ---- */
+@media (max-width:640px){
+  .glass,.portrait-badge{-webkit-backdrop-filter:blur(14px) saturate(1.35);
+    backdrop-filter:blur(14px) saturate(1.35)}
+  .blob{filter:blur(64px)}
+  .b3,.b4,.b5{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){ .blob{animation:none} }
