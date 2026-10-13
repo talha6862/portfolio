@@ -19,6 +19,7 @@
 </head>
 <body>
 
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
 <a class="skip" href="#work">Skip to work</a>
 
 <header class="bar" id="top">
@@ -54,17 +55,35 @@
   </svg>
 
   <div class="wrap hero-in">
-    <p class="eyebrow rise" style="--d:0ms">Lahore, Pakistan — open to work</p>
-    <h1 class="rise" style="--d:70ms">Full-stack developer<br>who lives in the <span class="hl">database</span>.</h1>
-    <p class="lede rise" style="--d:150ms">
-      I build SYNC ERP — the system a pharmaceutical field force runs on. A React web app, a React Native
-      app on Google Play, and a PostgreSQL backend carrying most of the business logic.
-    </p>
-    <div class="cta rise" style="--d:230ms">
-      <a class="btn" href="#work">See the work</a>
-      <a class="btn ghost" href="cv/Talha-Aslam-Full-Stack-Developer.pdf" download>Download CV</a>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow rise" style="--d:0ms">Lahore, Pakistan — open to work</p>
+        <h1>
+          <span class="ln rise" style="--d:90ms">Full-stack developer</span>
+          <span class="ln rise" style="--d:180ms">who lives in the <span class="hl">database</span>.</span>
+        </h1>
+        <p class="lede rise" style="--d:280ms">
+          I build SYNC ERP — the system a pharmaceutical field force runs on. A React web app, a React Native
+          app on Google Play, and a PostgreSQL backend carrying most of the business logic.
+        </p>
+        <div class="cta rise" style="--d:360ms">
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn ghost" href="cv/Talha-Aslam-Full-Stack-Developer.pdf" download>Download CV</a>
+        </div>
+      </div>
+
+      <div class="portrait-wrap rise" style="--d:440ms" id="portrait">
+        <div class="portrait-plate" aria-hidden="true"></div>
+        <figure class="portrait">
+          <img src="images/portrait.webp" width="400" height="400" alt="Talha Aslam" fetchpriority="high" decoding="async">
+          <span class="grain" aria-hidden="true"></span>
+          <span class="sheen" aria-hidden="true"></span>
+        </figure>
+        <span class="portrait-badge"><span class="pulse"></span>Available for work</span>
+      </div>
     </div>
-    <dl class="facts rise" style="--d:310ms">
+
+    <dl class="facts rise" style="--d:520ms">
       <div><dt>Experience</dt><dd>2+ years</dd></div>
       <div><dt>In production</dt><dd>Web &amp; mobile ERP</dd></div>
       <div><dt>Core stack</dt><dd>React · Node · PostgreSQL</dd></div>

@@ -51,6 +51,42 @@
     targets.forEach(function (t) { so.observe(t.el); });
   }
 
+
+  /* ---------- scroll progress bar ---------- */
+  var prog = document.querySelector('#progress i');
+  if (prog) {
+    var tick = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      prog.style.width = pct.toFixed(2) + '%';
+    };
+    tick();
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick);
+  }
+
+  /* ---------- portrait parallax tilt (pointer devices only) ---------- */
+  var pw = document.getElementById('portrait');
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (pw && fine && !reduced) {
+    var card = pw.querySelector('.portrait');
+    var frame = null;
+    pw.addEventListener('mousemove', function (e) {
+      if (frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = null;
+        var r = pw.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform =
+          'rotateY(' + (x * 9).toFixed(2) + 'deg) rotateX(' + (-y * 9).toFixed(2) + 'deg) translateZ(14px)';
+      });
+    });
+    pw.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  }
+
   /* ---------- lightbox ---------- */
   var box = document.getElementById('lightbox');
   if (!box) return;

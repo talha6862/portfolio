@@ -51,8 +51,8 @@ a{color:inherit}
 .lede{font-size:clamp(17px,1.9vw,20px);line-height:1.6;color:var(--dim);max-width:58ch}
 
 h1{
-  font-size:clamp(40px,7vw,86px);
-  line-height:1.0;
+  font-size:clamp(38px,5.6vw,74px);
+  line-height:1.02;
   letter-spacing:-.042em;
   font-weight:800;
   color:var(--bone);
@@ -323,4 +323,95 @@ footer a:hover{color:var(--brass)}
   .rise,.reveal{opacity:1 !important;transform:none !important}
   .draw path{stroke-dashoffset:0}
   .pips circle,.ring{opacity:1}
+}
+
+/* ============================================================
+   Added: portrait, scroll progress, extra motion
+   ============================================================ */
+
+/* ---- scroll progress ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;pointer-events:none}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brass),#F0C878);
+  box-shadow:0 0 12px rgba(217,164,65,.5)}
+
+/* ---- hero layout with portrait ---- */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;
+  gap:clamp(34px,6vw,84px);align-items:center}
+.hero h1 .ln{display:block}
+
+/* ---- portrait ---- */
+.portrait-wrap{position:relative;justify-self:end;width:288px;perspective:900px}
+.portrait-plate{
+  position:absolute;inset:-18px -18px -18px 18px;border-radius:160px 160px 26px 26px;
+  border:1px solid rgba(217,164,65,.30);
+  background:radial-gradient(70% 60% at 40% 10%, rgba(217,164,65,.14), transparent 70%);
+}
+.portrait{
+  position:relative;margin:0;border-radius:150px 150px 20px 20px;overflow:hidden;
+  border:1px solid rgba(246,241,234,.16);
+  box-shadow:0 36px 70px -30px rgba(0,0,0,.85);
+  transform-style:preserve-3d;
+  transition:transform .45s cubic-bezier(.2,.7,.3,1);
+  will-change:transform;
+}
+.portrait img{width:100%;display:block;filter:saturate(.98) contrast(1.02)}
+/* melt the base of the photo into the page */
+.portrait::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:38%;
+  background:linear-gradient(to top, var(--void) 2%, rgba(20,10,13,.55) 42%, transparent 100%);
+}
+.grain{
+  position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+.sheen{
+  position:absolute;top:0;bottom:0;left:-60%;width:45%;pointer-events:none;
+  background:linear-gradient(105deg, transparent, rgba(246,241,234,.16), transparent);
+  transform:skewX(-14deg);
+  animation:sheen 1.5s 1.25s cubic-bezier(.3,.7,.3,1) forwards;
+}
+@keyframes sheen{to{left:125%}}
+
+.portrait-badge{
+  position:absolute;left:-14px;bottom:26px;z-index:3;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;color:var(--bone);
+  background:rgba(29,16,20,.92);backdrop-filter:blur(8px);
+  border:1px solid var(--hair-2);border-radius:999px;padding:8px 14px;
+  box-shadow:0 14px 30px -14px rgba(0,0,0,.9);
+}
+.pulse{width:7px;height:7px;border-radius:50%;background:#4ED07F;position:relative;flex:none}
+.pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(78,208,127,.5);animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.5);opacity:0}}
+
+/* ---- eyebrow rule draws in on reveal ---- */
+.case-text .eyebrow,.also .eyebrow,.stack .eyebrow,.exp .eyebrow{
+  position:relative;padding-bottom:14px;
+}
+.case-text .eyebrow::after,.also .eyebrow::after,.stack .eyebrow::after,.exp .eyebrow::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+  background:currentColor;opacity:.45;transition:width .9s .15s cubic-bezier(.2,.7,.3,1);
+}
+.reveal.in .eyebrow::after{width:62px}
+
+/* ---- tablet ---- */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) 250px;gap:34px}
+  .portrait-wrap{width:240px}
+}
+
+/* ---- mobile ---- */
+@media (max-width:640px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .portrait-wrap{width:210px;justify-self:start;order:-1;margin-bottom:4px}
+  .portrait-plate{inset:-13px -13px -13px 13px;border-radius:112px 112px 20px 20px}
+  .portrait{border-radius:105px 105px 16px 16px}
+  .portrait-badge{left:auto;right:-10px;bottom:16px;font-size:11.5px;padding:7px 12px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .sheen,.pulse::after{animation:none}
+  .sheen{display:none}
+  .portrait{transition:none}
 }
