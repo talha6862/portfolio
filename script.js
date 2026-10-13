@@ -1,10 +1,62 @@
-// Lightbox for project screenshots.
+/* Portfolio interactions: lightbox, scroll reveal, sticky header, nav highlighting. */
 (function () {
-  const box = document.getElementById('lightbox');
+  'use strict';
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- sticky header shadow ---------- */
+  var bar = document.querySelector('.bar');
+  if (bar) {
+    var onScroll = function () {
+      bar.classList.toggle('stuck', window.scrollY > 12);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---------- scroll reveal ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          ro.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    reveals.forEach(function (el) { ro.observe(el); });
+  }
+
+  /* ---------- active section in nav ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.bar-nav a[href^="#"]'));
+  var targets = [];
+  links.forEach(function (a) {
+    var el = document.querySelector(a.getAttribute('href'));
+    if (el) targets.push({ a: a, el: el });
+  });
+  if (targets.length && 'IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var hit = targets.filter(function (t) { return t.el === en.target; })[0];
+        if (!hit) return;
+        if (en.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove('active'); });
+          hit.a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    targets.forEach(function (t) { so.observe(t.el); });
+  }
+
+  /* ---------- lightbox ---------- */
+  var box = document.getElementById('lightbox');
   if (!box) return;
-  const img = box.querySelector('img');
-  const close = box.querySelector('.lb-close');
-  let lastFocused = null;
+  var img = box.querySelector('img');
+  var closeBtn = box.querySelector('.lb-close');
+  var lastFocused = null;
 
   function open(src, alt) {
     lastFocused = document.activeElement;
@@ -12,7 +64,7 @@
     img.alt = alt || '';
     box.hidden = false;
     document.body.style.overflow = 'hidden';
-    close.focus();
+    closeBtn.focus();
   }
 
   function shut() {
@@ -24,36 +76,16 @@
 
   document.querySelectorAll('.zoom').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      const full = btn.dataset.full;
-      const inner = btn.querySelector('img');
-      open(full, inner ? inner.alt : '');
+      var inner = btn.querySelector('img');
+      open(btn.dataset.full, inner ? inner.alt : '');
     });
   });
 
-  close.addEventListener('click', shut);
+  closeBtn.addEventListener('click', shut);
   box.addEventListener('click', function (e) { if (e.target === box) shut(); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !box.hidden) shut();
+    /* keep focus inside the dialog */
+    if (e.key === 'Tab' && !box.hidden) { e.preventDefault(); closeBtn.focus(); }
   });
-})();
-
-// Mark the section currently in view in the header nav.
-(function () {
-  const links = Array.from(document.querySelectorAll('header.site nav a[href^="#"]'));
-  const map = new Map();
-  links.forEach(function (a) {
-    const el = document.querySelector(a.getAttribute('href'));
-    if (el) map.set(el, a);
-  });
-  if (!map.size || !('IntersectionObserver' in window)) return;
-
-  const io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      const a = map.get(en.target);
-      if (!a || a.classList.contains('nav-cta')) return;
-      a.style.color = en.isIntersecting ? 'var(--burgundy)' : '';
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-
-  map.forEach(function (_a, el) { io.observe(el); });
 })();
