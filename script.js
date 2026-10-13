@@ -66,10 +66,10 @@
   }
 
   /* ---------- portrait parallax tilt (pointer devices only) ---------- */
-  var pw = document.getElementById('portrait');
+  var pw = document.getElementById('hero');
   var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (pw && fine && !reduced) {
-    var card = pw.querySelector('.portrait');
+    var card = document.getElementById('heroPhoto');
     var frame = null;
     pw.addEventListener('mousemove', function (e) {
       if (frame) return;
@@ -79,7 +79,7 @@
         var x = (e.clientX - r.left) / r.width - 0.5;
         var y = (e.clientY - r.top) / r.height - 0.5;
         card.style.transform =
-          'rotateY(' + (x * 9).toFixed(2) + 'deg) rotateX(' + (-y * 9).toFixed(2) + 'deg) translateZ(14px)';
+          'translate3d(' + (-x * 26).toFixed(1) + 'px,' + (-y * 18).toFixed(1) + 'px,0) scale(1.05)';
       });
     });
     pw.addEventListener('mouseleave', function () {

@@ -467,7 +467,7 @@ footer{background:rgba(15,6,8,.5);backdrop-filter:blur(14px)}
 .bar.stuck{box-shadow:0 10px 30px -18px rgba(0,0,0,.8)}
 
 /* ---- facts row ---- */
-.facts{padding:22px clamp(18px,2.4vw,28px);border-top:0;margin-top:46px}
+.facts{padding:18px clamp(16px,2.2vw,26px);border-top:0;margin-top:34px}
 
 /* ---- project media as glass frames ---- */
 .shot{padding:10px;margin:0}
@@ -506,3 +506,124 @@ footer{background:rgba(15,6,8,.5);backdrop-filter:blur(14px)}
 }
 
 @media (prefers-reduced-motion:reduce){ .blob{animation:none} }
+
+/* ============================================================
+   Portrait — technical framing, not an arch
+   ============================================================ */
+.portrait-wrap{width:296px}
+
+/* dot matrix sitting behind and offset, like a plotted field */
+.portrait-grid{
+  position:absolute;inset:18px -22px -22px 18px;border-radius:4px;
+  background-image:radial-gradient(rgba(246,241,234,.22) 1px, transparent 1px);
+  background-size:9px 9px;
+  -webkit-mask-image:linear-gradient(215deg, transparent 38%, #000 100%);
+  mask-image:linear-gradient(215deg, transparent 38%, #000 100%);
+  opacity:.5;
+}
+
+/* viewfinder corner brackets */
+.brackets{
+  position:absolute;inset:-11px;width:calc(100% + 22px);height:calc(100% + 22px);
+  color:rgba(246,241,234,.34);pointer-events:none;z-index:3;
+}
+
+.portrait{
+  border-radius:5px;
+  border:1px solid rgba(246,241,234,.20);
+  box-shadow:0 30px 64px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(246,241,234,.14);
+}
+.portrait img{filter:none}
+/* a flatter, cooler fade so it sits on the page without the warm halo */
+.portrait::after{
+  height:30%;
+  background:linear-gradient(to top, rgba(12,10,14,.94) 0%, rgba(12,10,14,.42) 50%, transparent 100%);
+}
+.grain{opacity:.10}
+
+.portrait-badge{
+  left:auto;right:-12px;bottom:18px;border-radius:5px;
+  font-size:11.5px;letter-spacing:.01em;
+  background:rgba(18,14,18,.88);border-color:rgba(246,241,234,.18);
+}
+
+@media (max-width:980px){ .portrait-wrap{width:252px} }
+@media (max-width:640px){
+  .portrait-wrap{width:216px}
+  .portrait-grid{inset:14px -16px -16px 14px;background-size:8px 8px}
+  .brackets{inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px)}
+  .portrait{border-radius:4px}
+  .portrait-badge{right:-8px;bottom:12px}
+}
+
+/* ============================================================
+   HERO v2 — halftone portrait as the backdrop, name as the type
+   ============================================================ */
+.hero{position:relative;overflow:hidden;min-height:min(100svh,980px);
+  display:flex;align-items:center;padding-block:clamp(118px,13vh,150px) clamp(56px,8vh,88px)}
+
+.hero-photo{
+  position:absolute;top:0;bottom:0;right:-2%;width:min(58%,860px);z-index:0;
+  pointer-events:none;
+  transition:transform .6s cubic-bezier(.2,.7,.3,1);
+  will-change:transform;
+}
+.hero-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:54% 4%;
+  opacity:.62;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%, #000 100%),
+    linear-gradient(to bottom, #000 58%, transparent 97%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%, #000 100%),
+    linear-gradient(to bottom, #000 58%, transparent 97%);
+  -webkit-mask-composite:source-in;
+  mask-composite:intersect;
+}
+
+.hero-in{position:relative;z-index:3;width:100%}
+
+/* the name */
+.name{
+  font-size:clamp(60px,11.8vw,168px);
+  line-height:.86;
+  letter-spacing:-.055em;
+  font-weight:800;
+  color:var(--bone);
+  text-transform:none;
+  margin-top:4px;
+  mix-blend-mode:normal;
+  text-shadow:0 14px 60px rgba(10,4,7,.7);
+}
+.name .ln{display:block}
+.name .ln:last-child{margin-left:.07em;color:transparent;
+  -webkit-text-stroke:1.6px rgba(246,241,234,.72)}
+
+.role{
+  margin-top:clamp(20px,2.6vw,30px);
+  font-size:clamp(19px,2.5vw,30px);
+  font-weight:600;letter-spacing:-.025em;line-height:1.2;
+  color:var(--bone);max-width:20ch;
+}
+.hero .lede{margin-top:16px;max-width:50ch}
+
+.facts{display:flex;flex-wrap:wrap;gap:clamp(18px,3.4vw,44px);align-items:center}
+.facts .status dd{display:flex;align-items:center;gap:8px}
+
+@media (max-width:980px){
+  .hero-photo{width:62%;right:-6%}
+  .hero-photo img{opacity:.5}
+}
+
+@media (max-width:640px){
+  .hero{min-height:auto;padding-block:120px 70px}
+  .hero-photo{top:0;bottom:auto;right:-4%;left:auto;width:74%;height:52%}
+  .hero-photo img{opacity:.34;object-position:76% 2%;
+    -webkit-mask-image:linear-gradient(to bottom, #000 30%, transparent 94%);
+    mask-image:linear-gradient(to bottom, #000 30%, transparent 94%);
+    -webkit-mask-composite:source-over;mask-composite:add}
+  .name{font-size:clamp(56px,19vw,96px);line-height:.88}
+  .name .ln:last-child{-webkit-text-stroke-width:1.2px}
+  .role{max-width:none}
+  .facts{gap:16px 26px}
+}

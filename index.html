@@ -43,55 +43,49 @@
 <main>
 
 <!-- ========================= HERO ========================= -->
-<section class="hero">
+<section class="hero" id="hero">
+  <div class="hero-photo" id="heroPhoto" aria-hidden="true">
+    <img src="images/hero-portrait.webp" width="1500" height="2045" alt="" fetchpriority="high" decoding="async">
+  </div>
+
   <svg class="hero-art" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g class="draw" fill="none" stroke="#D9A441">
-      <path d="M-40 430 L130 360 L290 392 L450 300 L610 334 L780 246 L950 288 L1120 196 L1290 234 L1440 150" stroke-opacity=".30" stroke-width="1.2"/>
-      <path d="M-40 212 L120 258 L280 198 L450 238 L610 178 L780 220 L950 158 L1120 200 L1290 142 L1440 186" stroke-opacity=".17" stroke-width="1.1"/>
-      <path d="M620 640 L770 572 L930 612 L1090 532 L1250 572 L1410 492" stroke-opacity=".12" stroke-width="1.1"/>
+      <path d="M-40 430 L130 360 L290 392 L450 300 L610 334 L780 246 L950 288 L1120 196 L1290 234 L1440 150" stroke-opacity=".26" stroke-width="1.2"/>
+      <path d="M-40 212 L120 258 L280 198 L450 238 L610 178 L780 220 L950 158 L1120 200 L1290 142 L1440 186" stroke-opacity=".14" stroke-width="1.1"/>
     </g>
     <g class="pips" fill="#D9A441">
-      <circle cx="450" cy="300" r="3.2" opacity=".35"/><circle cx="780" cy="246" r="3.6" opacity=".45"/>
-      <circle cx="1120" cy="196" r="4" opacity=".6"/><circle cx="950" cy="158" r="3.2" opacity=".4"/>
-      <circle cx="1290" cy="142" r="3.6" opacity=".5"/><circle cx="1090" cy="532" r="3" opacity=".3"/>
+      <circle cx="450" cy="300" r="3.2" opacity=".3"/><circle cx="780" cy="246" r="3.6" opacity=".4"/>
+      <circle cx="1120" cy="196" r="4" opacity=".5"/><circle cx="950" cy="158" r="3.2" opacity=".35"/>
     </g>
-    <circle class="ring" cx="1120" cy="196" r="30" fill="none" stroke="#D9A441" stroke-opacity=".3" stroke-width="1.2"/>
-    <circle class="ring ring2" cx="1120" cy="196" r="54" fill="none" stroke="#D9A441" stroke-opacity=".14" stroke-width="1"/>
   </svg>
 
   <div class="wrap hero-in">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow rise" style="--d:0ms">Lahore, Pakistan — open to work</p>
-        <h1>
-          <span class="ln rise" style="--d:90ms">Full-stack developer</span>
-          <span class="ln rise" style="--d:180ms">who lives in the <span class="hl">database</span>.</span>
-        </h1>
-        <p class="lede rise" style="--d:280ms">
-          I build SYNC ERP — the system a pharmaceutical field force runs on. A React web app, a React Native
-          app on Google Play, and a PostgreSQL backend carrying most of the business logic.
-        </p>
-        <div class="cta rise" style="--d:360ms">
-          <a class="btn" href="#work">See the work</a>
-          <a class="btn ghost" href="cv/Talha-Aslam-Full-Stack-Developer.pdf" download>Download CV</a>
-        </div>
-      </div>
+    <p class="eyebrow rise" style="--d:0ms">Lahore, Pakistan — open to work</p>
 
-      <div class="portrait-wrap rise" style="--d:440ms" id="portrait">
-        <div class="portrait-plate" aria-hidden="true"></div>
-        <figure class="portrait">
-          <img src="images/portrait.webp" width="400" height="400" alt="Talha Aslam" fetchpriority="high" decoding="async">
-          <span class="grain" aria-hidden="true"></span>
-          <span class="sheen" aria-hidden="true"></span>
-        </figure>
-        <span class="portrait-badge"><span class="pulse"></span>Available for work</span>
-      </div>
+    <h1 class="name">
+      <span class="ln rise" style="--d:80ms">Talha</span>
+      <span class="ln rise" style="--d:170ms">Aslam</span>
+    </h1>
+
+    <p class="role rise" style="--d:260ms">
+      Full-stack developer who lives in the <span class="hl">database</span>.
+    </p>
+
+    <p class="lede rise" style="--d:330ms">
+      I build SYNC ERP — the system a pharmaceutical field force runs on. A React web app, a React Native
+      app on Google Play, and a PostgreSQL backend carrying most of the business logic.
+    </p>
+
+    <div class="cta rise" style="--d:410ms">
+      <a class="btn" href="#work">See the work</a>
+      <a class="btn ghost" href="cv/Talha-Aslam-Full-Stack-Developer.pdf" download>Download CV</a>
     </div>
 
-    <dl class="facts glass rise" style="--d:520ms">
+    <dl class="facts glass rise" style="--d:490ms">
       <div><dt>Experience</dt><dd>2+ years</dd></div>
       <div><dt>In production</dt><dd>Web &amp; mobile ERP</dd></div>
       <div><dt>Core stack</dt><dd>React · Node · PostgreSQL</dd></div>
+      <div class="status"><dt>Status</dt><dd><span class="pulse"></span>Available for work</dd></div>
     </dl>
   </div>
 
